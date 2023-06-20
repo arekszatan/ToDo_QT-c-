@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "custombutton.h"
 #include "todotask.h"
+#include "jsonfile.h"
+#include <QObject>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,5 +26,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    qint16 id;
+    jsonFile *file = new jsonFile("data.json");
+    void setInitialToDo();
 };
 #endif // MAINWINDOW_H

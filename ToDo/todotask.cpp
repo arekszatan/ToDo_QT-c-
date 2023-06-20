@@ -1,16 +1,17 @@
 #include "todotask.h"
 
-
-ToDoTask::ToDoTask(QWidget *parent)
+ToDoTask::ToDoTask(QWidget *parent, qint16 id, QString toDoTask, jsonFile *file):
+    file(file)
 {
+    idGlobal = id;
     this->setLayout(gridLayOut);
-
-    nr->setText("1");
+    QString sid = QString::number(id);
+    nr->setText(sid);
     nr->setFixedWidth(20);
     nr->setAlignment(Qt::AlignCenter);
     gridLayOut->addWidget(nr, 0, 0);
 
-    task->setText("firs task cos csaca");
+    task->setText(toDoTask);
     gridLayOut->addWidget(task, 0, 1);
 
     check->setCheckState(Qt::Checked);
@@ -22,19 +23,22 @@ ToDoTask::ToDoTask(QWidget *parent)
     delButton->setFixedWidth(100);
     connect(delButton, &QPushButton::clicked, [&](bool) {
         qInfo()<<"Delete button was clicked";
+        removeToJson();
         this->deleteLater();
          });
     gridLayOut->addWidget(delButton, 0, 4);
 
     qInfo()<<"Task to do was created";
+    //jsonFile::removeItemWithId(id);
+
 }
 
 ToDoTask::~ToDoTask()
-{
+{   
     qInfo()<<"Task to do was deleted";
 }
 
-void ToDoTask::delButtonClicked()
+void ToDoTask::removeToJson()
 {
-
+    file->removeItemWithId(idGlobal);
 }

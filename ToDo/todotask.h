@@ -7,15 +7,18 @@
 #include <QDebug>
 #include <QLabel>
 #include <QCheckBox>
+#include <QObject>
+#include "jsonfile.h"
 
 class ToDoTask : public QWidget
 {
+    Q_OBJECT
+    Q_EMIT
 public:
-    ToDoTask(QWidget *parent = nullptr);
+    ToDoTask(QWidget *parent = nullptr, qint16 id = 0, QString toDoTask = "brak", jsonFile *file = nullptr);
     ~ToDoTask();
 
 public slots:
-    void delButtonClicked();
 
 private:
     QPushButton *delButton = new QPushButton;
@@ -23,6 +26,11 @@ private:
     QLabel *nr = new QLabel;
     QLabel *task = new QLabel;
     QCheckBox *check = new QCheckBox;
+    int idGlobal = 0;
+    void removeToJson();
+    jsonFile *file;
+
+signals:
 
 };
 
