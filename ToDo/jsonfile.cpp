@@ -119,6 +119,7 @@ bool jsonFile::removeItemWithId(int id)
     while (!toDoList.isEmpty()) {
         toDoList.pop_back();
     }
+    updateFile();
 
     for (const auto& value : value.toArray()) {
         QJsonObject obj = value.toObject();

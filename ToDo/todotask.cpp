@@ -24,7 +24,6 @@ ToDoTask::ToDoTask(QWidget *parent, qint16 id, QString toDoTask, jsonFile *file)
     connect(delButton, &QPushButton::clicked, [&](bool) {
         qInfo()<<"Delete button was clicked";
         removeToJson();
-        this->deleteLater();
          });
     gridLayOut->addWidget(delButton, 0, 4);
 
@@ -40,5 +39,9 @@ ToDoTask::~ToDoTask()
 
 void ToDoTask::removeToJson()
 {
-    file->removeItemWithId(idGlobal);
+    bool success = file->removeItemWithId(idGlobal);
+    if (success)
+        this->deleteLater();
+    else
+        qInfo()<<"Cant delete this becouse remove in file isnt success";
 }
